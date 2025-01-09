@@ -56,10 +56,7 @@ public class GameManager : MonoBehaviour
 
         if (controlledBlock.CanCombine(null, moveVector, out SymbolBlock.CombinationInfo info))
         {
-            Debug.Log(info.Operator_A);
-            Debug.Log(info.Operator_B);
-            Debug.Log(info.Operand);
-            Debug.Log(info.ResultPosition);
+            Debug.Log(info.Result);
             return;
         }
 

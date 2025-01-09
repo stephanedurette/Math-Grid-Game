@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using static Unity.Collections.AllocatorManager;
@@ -16,6 +17,15 @@ public class SymbolBlock : Block
         {Symbol.divide, "/"},
     };
 
+    public Dictionary<Symbol, Func<int, int, int>> symbolOperations = new()
+    {
+        {Symbol.add, (a, b) => a + b },
+        {Symbol.subtract, (a, b) => a - b },
+        {Symbol.multiply, (a, b) => a * b },
+        {Symbol.divide, (a, b) => a / b },
+    };
+
+
     private void Start()
     {
         textMeshProUGUI.text = symbolStrings[symbol];
@@ -28,9 +38,8 @@ public class SymbolBlock : Block
             if(ValidCombination(previousBlock, nextBlock))
             {
                 info = new CombinationInfo();
-                info.Operator_A = (previousBlock as NumberBlock).Value;
-                info.Operator_B = (nextBlock as NumberBlock).Value;
-                info.Operand = symbol;
+
+                info.Result = symbolOperations[symbol]((previousBlock as NumberBlock).Value, (nextBlock as NumberBlock).Value);
                 info.ResultPosition = transform.position + direction;
 
                 return true;
@@ -51,9 +60,7 @@ public class SymbolBlock : Block
 
     public struct CombinationInfo
     {
-        public int Operator_A;
-        public int Operator_B;
-        public Symbol Operand;
+        public int Result;
         public Vector3 ResultPosition;
     }
 }
