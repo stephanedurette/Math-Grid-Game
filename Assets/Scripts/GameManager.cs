@@ -54,6 +54,12 @@ public class GameManager : MonoBehaviour
 
         if (moveVector == Vector3.zero) return;
 
+        if (controlledBlock.CanCombine(null, moveVector))
+        {
+            Debug.Log("can combine");
+            return;
+        }
+
         if (controlledBlock.CanMove(moveVector)){
             controlledBlock.Move(moveVector);
         }

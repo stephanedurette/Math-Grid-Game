@@ -9,4 +9,17 @@ public class NumberBlock : Block
     {
         textMeshProUGUI.text = value.ToString();
     }
+
+    public override bool CanCombine(Block previousBlock, Vector3 direction)
+    {
+        if (GameManager.Instance.BlockAtPosition(transform.position + direction, out Block block))
+        {
+            if (block.CanCombine(this, direction))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -11,6 +11,11 @@ public class Block : MonoBehaviour
         textMeshProUGUI = GetComponentInChildren<TextMeshProUGUI>();
     }
 
+    public virtual bool CanCombine(Block previousBlock, Vector3 direction)
+    {
+        return false;
+    }
+
     public bool CanMove(Vector3 direction)
     {
         Vector3 newPosition = transform.position + direction;

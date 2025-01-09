@@ -20,5 +20,25 @@ public class SymbolBlock : Block
         textMeshProUGUI.text = symbolStrings[symbol];
     }
 
+    public override bool CanCombine(Block previousBlock, Vector3 direction)
+    {
+        if (GameManager.Instance.BlockAtPosition(transform.position + direction, out Block block))
+        {
+            if (block.CanCombine(this, direction))
+            {
+                return true;
+            }
+
+            if (previousBlock == null)
+            {
+                return false;
+            }
+
+            return previousBlock.GetType() == typeof(NumberBlock) && block.GetType() == typeof(NumberBlock);
+        }
+
+        return false;
+    }
+
 
 }
