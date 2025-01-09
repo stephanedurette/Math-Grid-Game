@@ -33,7 +33,5 @@ public class Block : MonoBehaviour
         }
 
         transform.DOMove(newPosition, GameManager.Instance.MoveDelay, false);
-
-        //transform.position += direction;
     }
 }
