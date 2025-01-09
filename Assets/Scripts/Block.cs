@@ -1,7 +1,16 @@
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 
 public class Block : MonoBehaviour
 {
+    protected TextMeshProUGUI textMeshProUGUI;
+
+    private void Awake()
+    {
+        textMeshProUGUI = GetComponentInChildren<TextMeshProUGUI>();
+    }
+
     public bool CanMove(Vector3 direction)
     {
         Vector3 newPosition = transform.position + direction;
@@ -23,6 +32,8 @@ public class Block : MonoBehaviour
             block.Move(direction);
         }
 
-        transform.position += direction;
+        transform.DOMove(newPosition, GameManager.Instance.MoveDelay, false);
+
+        //transform.position += direction;
     }
 }

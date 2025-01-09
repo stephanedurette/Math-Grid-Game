@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private float moveDelay = 0.1f;
 
+    public float MoveDelay => moveDelay;
+
     readonly float GRID_SIZE = 1;
 
     public InputSystem_Actions inputs;
