@@ -1,6 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using static SymbolBlock;
 
 public class Block : MonoBehaviour
 {
@@ -11,8 +12,9 @@ public class Block : MonoBehaviour
         textMeshProUGUI = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    public virtual bool CanCombine(Block previousBlock, Vector3 direction)
+    public virtual bool CanCombine(Block previousBlock, Vector3 direction, out CombinationInfo info)
     {
+        info = new CombinationInfo();
         return false;
     }
 

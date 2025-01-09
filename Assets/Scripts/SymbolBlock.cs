@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.Collections.AllocatorManager;
 
 public class SymbolBlock : Block
 {
-    private enum Symbol { add, subtract, multiply, divide }
+    public enum Symbol { add, subtract, multiply, divide }
 
     [SerializeField] private Symbol symbol;
 
@@ -20,25 +21,39 @@ public class SymbolBlock : Block
         textMeshProUGUI.text = symbolStrings[symbol];
     }
 
-    public override bool CanCombine(Block previousBlock, Vector3 direction)
+    public override bool CanCombine(Block previousBlock, Vector3 direction, out CombinationInfo info)
     {
-        if (GameManager.Instance.BlockAtPosition(transform.position + direction, out Block block))
+        if (GameManager.Instance.BlockAtPosition(transform.position + direction, out Block nextBlock))
         {
-            if (block.CanCombine(this, direction))
+            if(ValidCombination(previousBlock, nextBlock))
             {
+                info = new CombinationInfo();
+                info.Operator_A = (previousBlock as NumberBlock).Value;
+                info.Operator_B = (nextBlock as NumberBlock).Value;
+                info.Operand = symbol;
+                info.ResultPosition = transform.position + direction;
+
                 return true;
             }
 
-            if (previousBlock == null)
+            if (nextBlock.CanCombine(this, direction, out CombinationInfo i))
             {
-                return false;
+                info = i;
+                return true;
             }
-
-            return previousBlock.GetType() == typeof(NumberBlock) && block.GetType() == typeof(NumberBlock);
         }
 
+        info = new CombinationInfo();
         return false;
     }
 
+    bool ValidCombination(Block previous, Block next) => previous != null && previous.GetType() == typeof(NumberBlock) && next.GetType() == typeof(NumberBlock);
 
+    public struct CombinationInfo
+    {
+        public int Operator_A;
+        public int Operator_B;
+        public Symbol Operand;
+        public Vector3 ResultPosition;
+    }
 }
