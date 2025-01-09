@@ -52,6 +52,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6859914776894095833, guid: 475bc287a3223524b8f49f4f192b03be, type: 3}
+      propertyPath: m_text
+      value: x
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859914776894095833, guid: 475bc287a3223524b8f49f4f192b03be, type: 3}
+      propertyPath: m_fontSize
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859914776894095833, guid: 475bc287a3223524b8f49f4f192b03be, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859914776894095833, guid: 475bc287a3223524b8f49f4f192b03be, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.50981236
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859914776894095833, guid: 475bc287a3223524b8f49f4f192b03be, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859914776894095833, guid: 475bc287a3223524b8f49f4f192b03be, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6859914776894095833, guid: 475bc287a3223524b8f49f4f192b03be, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278223615
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1548848062418258930, guid: 475bc287a3223524b8f49f4f192b03be, type: 3}
     m_RemovedGameObjects: []
@@ -78,3 +106,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca3afa91e17a8c84fbb0c97557349c58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  symbol: 0
