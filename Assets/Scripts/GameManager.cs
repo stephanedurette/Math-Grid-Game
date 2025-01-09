@@ -1,3 +1,4 @@
+using DG.Tweening;
 using ImprovedTimers;
 using System.Collections;
 using UnityEngine;
@@ -18,6 +19,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     private CountdownTimer moveTimer;
+
+    private bool canMove = true;
 
     private Vector2 moveInputVector => inputs.Player.Move.ReadValue<Vector2>();
 
@@ -50,19 +53,36 @@ public class GameManager : MonoBehaviour
 
     private void UpdateMove()
     {
+        if (!canMove) return;
+
         Vector3 moveVector = GetMoveVector();
 
         if (moveVector == Vector3.zero) return;
 
         if (controlledBlock.CanCombine(null, moveVector, out SymbolBlock.CombinationInfo info))
         {
-            Debug.Log(info.Result);
+            CombineBlocks(info);
             return;
         }
 
         if (controlledBlock.CanMove(moveVector)){
             controlledBlock.Move(moveVector);
         }
+    }
+
+    private void CombineBlocks(SymbolBlock.CombinationInfo info)
+    {
+        canMove = false;
+
+        DOTween.Sequence()
+            .Append(info.OperatorBlock_A.transform.DOMove(info.OperatorBlock_B.transform.position, moveDelay))
+            .Join(info.OperandBlock.transform.DOMove(info.OperatorBlock_B.transform.position, moveDelay))
+            .AppendCallback(() => info.OperatorBlock_A.SetValue(info.Result))
+            .AppendCallback(() => Destroy(info.OperatorBlock_B.gameObject))
+            .AppendCallback(() => Destroy(info.OperandBlock.gameObject))
+            .AppendCallback(() => info.OperatorBlock_A.SetValue(info.Result))
+            .AppendCallback(() => canMove = true)
+            .Play();
     }
 
     public bool BlockAtPosition(Vector3 position, out Block block)

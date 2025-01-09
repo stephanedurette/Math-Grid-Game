@@ -13,6 +13,12 @@ public class NumberBlock : Block
         textMeshProUGUI.text = value.ToString();
     }
 
+    public void SetValue(int value)
+    {
+        this.value = value;
+        textMeshProUGUI.text = value.ToString();
+    }
+
     public override bool CanCombine(Block previousBlock, Vector3 direction, out CombinationInfo info)
     {
         if (GameManager.Instance.BlockAtPosition(transform.position + direction, out Block block))

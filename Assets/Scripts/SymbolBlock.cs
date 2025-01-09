@@ -40,7 +40,9 @@ public class SymbolBlock : Block
                 info = new CombinationInfo();
 
                 info.Result = symbolOperations[symbol]((previousBlock as NumberBlock).Value, (nextBlock as NumberBlock).Value);
-                info.ResultPosition = transform.position + direction;
+                info.OperandBlock = this;
+                info.OperatorBlock_A = previousBlock as NumberBlock;
+                info.OperatorBlock_B = nextBlock as NumberBlock;
 
                 return true;
             }
@@ -61,6 +63,8 @@ public class SymbolBlock : Block
     public struct CombinationInfo
     {
         public int Result;
-        public Vector3 ResultPosition;
+        public SymbolBlock OperandBlock;
+        public NumberBlock OperatorBlock_A;
+        public NumberBlock OperatorBlock_B;
     }
 }
