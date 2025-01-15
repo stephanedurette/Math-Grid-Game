@@ -80,7 +80,6 @@ public class GameManager : MonoBehaviour
             .AppendCallback(() => info.OperatorBlock_A.SetValue(info.Result))
             .AppendCallback(() => Destroy(info.OperatorBlock_B.gameObject))
             .AppendCallback(() => Destroy(info.OperandBlock.gameObject))
-            .AppendCallback(() => info.OperatorBlock_A.SetValue(info.Result))
             .AppendCallback(() => canMove = true)
             .Play();
     }
