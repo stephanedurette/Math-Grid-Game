@@ -77,11 +77,14 @@ public class GameManager : MonoBehaviour
         DOTween.Sequence()
             .Append(info.OperatorBlock_A.transform.DOMove(info.OperatorBlock_B.transform.position, moveDelay))
             .Join(info.OperandBlock.transform.DOMove(info.OperatorBlock_B.transform.position, moveDelay))
-            .AppendCallback(() => info.OperatorBlock_A.SetValue(info.Result))
-            .AppendCallback(() => Destroy(info.OperatorBlock_B.gameObject))
-            .AppendCallback(() => Destroy(info.OperandBlock.gameObject))
-            .AppendCallback(() => canMove = true)
-            .Play();
+            .AppendCallback(() => 
+            {
+                info.OperatorBlock_A.SetValue(info.Result);
+                Destroy(info.OperatorBlock_B.gameObject);
+                Destroy(info.OperandBlock.gameObject);
+                canMove = true;
+            }
+            ).Play();
     }
 
     public bool BlockAtPosition(Vector3 position, out Block block)
