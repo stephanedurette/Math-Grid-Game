@@ -74,17 +74,25 @@ public class GameManager : MonoBehaviour
     {
         canMove = false;
 
-        DOTween.Sequence()
-            .Append(info.OperatorBlock_A.transform.DOMove(info.OperatorBlock_B.transform.position, moveDelay))
-            .Join(info.OperandBlock.transform.DOMove(info.OperatorBlock_B.transform.position, moveDelay))
-            .AppendCallback(() => 
-            {
-                info.OperatorBlock_A.SetValue(info.Result);
-                Destroy(info.OperatorBlock_B.gameObject);
-                Destroy(info.OperandBlock.gameObject);
-                canMove = true;
-            }
-            ).Play();
+        Sequence s = DOTween.Sequence();
+
+        s.Append(info.OperatorBlock_A.transform.DOMove(info.OperatorBlock_B.transform.position, moveDelay));
+        s.Join(info.OperandBlock.transform.DOMove(info.OperatorBlock_B.transform.position, moveDelay));
+
+        if (info.OperatorBlock_A != controlledBlock)
+        {
+            s.Join(controlledBlock.transform.DOMove(info.OperandBlock.transform.position, moveDelay));
+        }
+
+        s.AppendCallback(() => {
+            info.OperatorBlock_A.SetValue(info.Result);
+            Destroy(info.OperatorBlock_B.gameObject);
+            Destroy(info.OperandBlock.gameObject);
+            canMove = true;
+        });
+
+        s.Play();
+
     }
 
     public bool BlockAtPosition(Vector3 position, out Block block)
