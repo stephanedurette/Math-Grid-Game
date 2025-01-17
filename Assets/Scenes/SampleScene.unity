@@ -776,7 +776,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controlledBlock: {fileID: 55077084}
   tilemap: {fileID: 2030591273}
-  moveDelay: 0.1
+  moveDelay: 0.25
 --- !u!4 &1633283220
 Transform:
   m_ObjectHideFlags: 0
